@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const Book = ({ book, updateBookShelf }) => { 
 
     const updateCategory = (shelf) => {
@@ -46,6 +48,11 @@ const Book = ({ book, updateBookShelf }) => {
             </div>
         </li>
     );
+}
+
+Book.propTypes = {
+    book: PropTypes.object.isRequired,
+    updateBookShelf: PropTypes.func.isRequired,
 }
 
 export default Book;

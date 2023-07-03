@@ -33,15 +33,19 @@ function App() {
     if(query !== ""){
       const getSearchedBooks = async () => {
         const queryBooks = await BooksApi.search(query);
-        const finalbooks = () => queryBooks.map((searchBook) => {
-            const bookOnShelf = books.find(({id}) => searchBook.id === id );
-            const shelf = bookOnShelf ? bookOnShelf.shelf : 'noneShelf';
-            return {
-              ...searchBook,
-              shelf: shelf
-            }
-        });
-        setSearchBooks(finalbooks());
+        if(!queryBooks["error"]){
+          const finalbooks = () => queryBooks.map((searchBook) => {
+              const bookOnShelf = books.find(({id}) => searchBook.id === id );
+              const shelf = bookOnShelf ? bookOnShelf.shelf : 'noneShelf';
+              return {
+                ...searchBook,
+                shelf: shelf
+              }
+          });
+          setSearchBooks(finalbooks());
+        }else{
+          setSearchBooks([]);
+        }
       };
       getSearchedBooks();
     }else{
